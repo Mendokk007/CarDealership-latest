@@ -183,3 +183,8 @@ GO
 
 ```
 
+## After Setup
+Update your connection string in the C# code if needed:
+```sql
+_connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=CarDealershipDB;Integrated Security=True;";
+```
