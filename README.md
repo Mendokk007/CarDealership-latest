@@ -1,13 +1,24 @@
+# Car Dealership Database Setup
+
+## Instructions
+
+1. Open **SQL Server Management Studio (SSMS)**
+2. Connect to your SQL Server instance
+3. Copy the query below
+4. Paste it into a new query window
+5. Press **F5** or click **Execute** to run
+
+## Database Query
+
+```sql
 -- =============================================
 -- COMPLETE CAR DEALERSHIP DATABASE SETUP
 -- Includes all tables with profile features
--- Copy and paste this entire script into SQL Server Management Studio
 -- =============================================
 
 -- Drop existing database if it exists (to start fresh)
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'CarDealershipDB')
 BEGIN
-    -- Close any existing connections
     ALTER DATABASE CarDealershipDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
     DROP DATABASE CarDealershipDB;
     PRINT 'Existing database dropped';
@@ -116,17 +127,6 @@ PRINT '=========================================';
 PRINT 'DATABASE SETUP VERIFICATION';
 PRINT '=========================================';
 
--- Show Users table structure
-PRINT '';
-PRINT '--- USERS TABLE STRUCTURE ---';
-SELECT 
-    COLUMN_NAME,
-    DATA_TYPE,
-    CASE IS_NULLABLE WHEN 'NO' THEN 'Required' ELSE 'Optional' END AS Nullable
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'Users'
-ORDER BY ORDINAL_POSITION;
-
 -- Show Users data
 PRINT '';
 PRINT '--- USERS DATA ---';
@@ -138,17 +138,6 @@ SELECT
     CASE WHEN Email IS NULL THEN '[Not Set]' ELSE Email END AS Email,
     CASE WHEN ProfileImage IS NULL THEN 'No Profile Picture' ELSE 'Has Profile Picture' END AS ProfileImage
 FROM Users;
-
--- Show Cars table structure
-PRINT '';
-PRINT '--- CARS TABLE STRUCTURE ---';
-SELECT 
-    COLUMN_NAME,
-    DATA_TYPE,
-    CASE IS_NULLABLE WHEN 'NO' THEN 'Required' ELSE 'Optional' END AS Nullable
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'Cars'
-ORDER BY ORDINAL_POSITION;
 
 -- Show Cars data
 PRINT '';
@@ -191,3 +180,6 @@ PRINT 'Note: Users "mike" and "sarah" have no profile info set yet';
 PRINT 'They can add their FullName, Email, and Profile Picture through the Edit Profile feature';
 PRINT '=========================================';
 GO
+
+```
+
