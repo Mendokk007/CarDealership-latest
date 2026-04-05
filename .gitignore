@@ -1,0 +1,29 @@
+# Visual Studio specific
+bin/
+obj/
+*.user
+*.suo
+*.cache
+.vs/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Database files
+*.mdf
+*.ldf
+*.sdf
+
+# Image files (if you don't want to upload car images)
+# CarImages/*.png
+# CarImages/*.jpg
