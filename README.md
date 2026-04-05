@@ -188,3 +188,8 @@ Update your connection string in the C# code if needed:
 ```sql
 _connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=CarDealershipDB;Integrated Security=True;";
 ```
+
+## Clone the repository
+   ```bash
+   git clone https://github.com/Mendokk007/CarDealership-latest.git
+   ```
