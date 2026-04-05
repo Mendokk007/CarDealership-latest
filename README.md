@@ -1,460 +1,193 @@
-# 🚗 Car Dealership Management System
-
-A complete Windows Forms application for managing car dealership operations with user authentication, car browsing, profile management, and purchase tracking.
-
-## 📋 Table of Contents
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [System Requirements](#system-requirements)
-- [Installation Guide](#installation-guide)
-- [Database Setup](#database-setup)
-- [Running the Application](#running-the-application)
-- [Login Credentials](#login-credentials)
-- [Project Structure](#project-structure)
-- [UI Features](#ui-features)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-
-## ✨ Features
-
-### User Features
-- **User Authentication**: Secure login and registration system
-- **Profile Management**: Upload profile pictures, add full name and email
-- **Car Catalog**: Browse cars with image carousel (auto-slides every 8 seconds)
-- **Car Purchase**: Select and purchase cars with confirmation
-- **Custom UI**: Modern dark theme with red accents
-- **Draggable Windows**: Borderless forms with custom title bars
-
-### Admin Features
-- **Manage Cars**: Add, edit, or remove car listings
-- **View Purchases**: Track all customer purchases
-- **User Management**: View registered users
-
-## 🛠 Technologies Used
-
-- **Frontend**: Windows Forms (.NET Framework 4.7.2+)
-- **Backend**: C#
-- **Database**: Microsoft SQL Server
-- **Graphics**: GDI+ for circular profile images
-- **Version Control**: Git & GitHub
-
-## 💻 System Requirements
-
-- Windows 7/8/10/11
-- .NET Framework 4.7.2 or higher
-- SQL Server 2012 or higher (Express edition works)
-- Visual Studio 2019/2022 (for development)
-- 2GB RAM minimum
-- 100MB free disk space
-
-## 📥 Installation Guide
-
-### For Users (Just Running the App)
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Mendokk007/CarDealership-latest.git
-Navigate to the project folder
-
-bash
-cd CarDealership-latest
-Open the solution
-
-Double-click CarDealership.sln to open in Visual Studio
-
-For Developers (Full Setup)
-Install Visual Studio 2022 with these workloads:
-
-.NET desktop development
-
-Data storage and processing
-
-Install SQL Server (if not already installed):
-
-Download SQL Server Express from Microsoft
-
-Install with default settings
-
-Install SQL Server Management Studio (SSMS)
-
-Clone the repository
-
-bash
-git clone https://github.com/Mendokk007/CarDealership-latest.git
-🗄 Database Setup
-Automatic Setup (Recommended)
-Open SQL Server Management Studio (SSMS)
-
-Connect to your SQL Server instance (usually .\SQLEXPRESS or localhost)
-
-Click File → Open → File or press Ctrl + O
-
-Navigate to the project folder and select DatabaseSetup.sql
-
-Press F5 or click Execute to run the script
-
-The script will automatically:
-
-Create the CarDealershipDB database
-
-Create all necessary tables (Users, Cars, Purchases)
-
-Insert 10 sample cars with images
-
-Insert 5 test users with profile fields
-
-Add profile picture support
-
-What the Database Script Creates
-Users Table:
-
-UserID (Primary Key)
-
-Username (Unique, required)
-
-Password (Required)
-
-FullName (Optional)
-
-Email (Optional)
-
-ProfileImage (Optional, stores profile pictures)
-
-Cars Table:
-
-CarID (Primary Key)
-
-ModelName
-
-Price
-
-ImageUrl (path to car image)
-
-Year
-
-Description
-
-Purchases Table:
-
-PurchaseID (Primary Key)
-
-CarID (Foreign Key)
-
-Username (Foreign Key)
-
-PurchaseDate (Auto-generated)
-
-TotalAmount
-
-Update Connection String
-After database setup, update the connection string in your C# code if needed:
-
-csharp
-// In LoginForm.cs, RegisterForm.cs, and HomeForm.cs
-// Default connection string (uses local SQL Express):
-_connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=CarDealershipDB;Integrated Security=True;";
-
-// If using a different SQL Server instance:
-_connectionString = @"Data Source=YOUR_SERVER_NAME;Initial Catalog=CarDealershipDB;Integrated Security=True;";
-
-// If using SQL Server authentication:
-_connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=CarDealershipDB;User Id=sa;Password=your_password;";
-Car Images Setup
-Create a folder named CarImages in the application directory (bin\Debug\ or bin\Release\)
-
-Add the car images with these exact filenames:
-
-toyota-camry-removebg-preview.png
-
-honda-civic-removebg-preview.png
-
-ford-mustang-removebg-preview.png
-
-tesla-model-3-removebg-preview.png
-
-bmw-x5-removebg-preview.png
-
-mercedes-cclass-removebg-preview.png
-
-audi-a4-removebg-preview.png
-
-hyundai-tucson-removebg-preview.png
-
-nissan-altima-removebg-preview.png
-
-chevrolet-camaro-removebg-preview.png
-
-Or modify the ImageUrl paths in the database to match your image locations
-
-Logo Setup (Optional)
-Create a folder named Logos in the application directory
-
-Add your custom logo as logo.png (recommended size: 100x50 pixels)
-
-The logo will automatically display in the center of the top bar
-
-🚀 Running the Application
-From Visual Studio
-Open CarDealership.sln in Visual Studio
-
-Build the solution (Ctrl + Shift + B)
-
-Press F5 or click Start to run
-
-The Login Form will appear
-
-From Executable
-Navigate to bin\Debug\ or bin\Release\
-
-Double-click CarDealership.exe
-
-Login with credentials below
-
-🔐 Login Credentials
-Username	Password	Role	Profile Status
-admin	admin123	Administrator	Has profile info
-john	password123	Regular User	Has profile info
-jane	password456	Regular User	Has profile info
-mike	mike123	Regular User	No profile (add yours)
-sarah	sarah123	Regular User	No profile (add yours)
-📁 Project Structure
-text
-CarDealership/
-├── CarDealership.sln              # Visual Studio solution
-├── README.md                       # This file
-├── DatabaseSetup.sql               # Database creation script
-├── LoginForm.cs                    # Login form logic
-├── LoginForm.Designer.cs           # Login form design
-├── RegisterForm.cs                 # Registration form
-├── RegisterForm.Designer.cs        # Registration form design
-├── HomeForm.cs                     # Main dashboard logic
-├── HomeForm.Designer.cs            # Main dashboard design
-├── EditProfileForm.cs              # Profile editing logic
-├── EditProfileForm.Designer.cs     # Profile editing design
-├── PurchaseForm.cs                 # Purchase logic
-├── PurchaseForm.Designer.cs        # Purchase design
-├── CarImages/                      # Car images folder
-│   ├── toyota-camry-removebg-preview.png
-│   ├── honda-civic-removebg-preview.png
-│   ├── ford-mustang-removebg-preview.png
-│   ├── tesla-model-3-removebg-preview.png
-│   ├── bmw-x5-removebg-preview.png
-│   ├── mercedes-cclass-removebg-preview.png
-│   ├── audi-a4-removebg-preview.png
-│   ├── hyundai-tucson-removebg-preview.png
-│   ├── nissan-altima-removebg-preview.png
-│   └── chevrolet-camaro-removebg-preview.png
-└── Logos/                          # Custom logos folder (optional)
-    └── logo.png                    # Your custom logo (100x50 recommended)
-🎨 UI Features
-Login Form
-Borderless custom window
-
-Draggable title bar
-
-Red close button with hover effects
-
-Register and Delete Account links
-
-Dark theme with red accents
-
-Home Dashboard
-Top Bar Layout:
-
-Left: Profile section with circular picture, welcome message, and edit profile link
-
-Center: Custom logo (supports uploaded images)
-
-Right: Logout button with hover effects
-
-Car Carousel:
-
-Auto-slides every 8 seconds
-
-Manual navigation with Previous/Next buttons
-
-Zoomed image display with transparency support
-
-Price displayed in red with Philippine Peso format
-
-Select Car Button: Opens purchase confirmation dialog
-
-Edit Profile Form
-Borderless custom window with close button
-
-Circular profile picture with upload support
-
-Full name and email fields
-
-Image preview with circular cropping
-
-Save and Cancel buttons
-
-Purchase Form
-Car image display
-
-Car model and price
-
-Customer information
-
-Confirm purchase with success message
-
-🔧 Troubleshooting
-Database Connection Error
-Error: Cannot open database "CarDealershipDB" or Login failed for user
-
-Solutions:
-
-Run the DatabaseSetup.sql script in SSMS
-
-Check your SQL Server instance name in SSMS
-
-Update connection string in all forms:
-
-LoginForm.cs
-
-RegisterForm.cs
-
-HomeForm.cs
-
-Make sure SQL Server service is running
-
-Enable TCP/IP protocol in SQL Server Configuration Manager
-
-Image Not Found Error
-Error: Car images not displaying (shows "Image Not Found" placeholder)
-
-Solutions:
-
-Create a CarImages folder in bin\Debug\ or bin\Release\
-
-Add the car images with exact filenames from the database
-
-Or update ImageUrl paths in the Cars table:
-
-sql
-UPDATE Cars SET ImageUrl = 'YourCustomPath\\image.png' WHERE CarID = 1;
-Profile Picture Not Saving
-Error: Profile image doesn't update or save
-
-Solutions:
-
-Ensure the ProfileImage column exists in Users table
-
-Run the full DatabaseSetup.sql script to add missing columns
-
-Check file permissions in the application folder
-
-Image is automatically resized to 300x300 before saving
-
-Build Errors
-Error: Missing references or using directives
-
-Solutions:
-
-Right-click References → Add Reference
-
-Add these assemblies:
-
-System.Drawing
-
-System.Data
-
-System.Windows.Forms
-
-Clean and rebuild solution (Build → Clean Solution, then Build → Rebuild Solution)
-
-Logo Not Displaying
-Error: Logo area is blank
-
-Solutions:
-
-Create a Logos folder in the application directory
-
-Add logo.png file (recommended size: 100x50 pixels)
-
-The app will show a default "2F SUPER CARS" text logo if no image is found
-
-Form Drag Not Working
-Error: Cannot drag the window
-
-Solutions:
-
-Make sure you're clicking on the top panel (dark gray area)
-
-Click and hold on empty space (not on buttons)
-
-The Edit Profile link won't drag (keeps click functionality)
-
-🤝 Contributing
-Fork the repository
-
-Create a feature branch (git checkout -b feature/AmazingFeature)
-
-Commit changes (git commit -m 'Add AmazingFeature')
-
-Push to branch (git push origin feature/AmazingFeature)
-
-Open a Pull Request
-
-📝 License
-This project is for educational purposes only.
-
-👥 Author
-Mendokk007
-
-🙏 Acknowledgments
-Icons and car images from various sources
-
-Inspired by modern car dealership websites
-
-UI design influenced by Discord's dark theme
-
-📞 Support
-For issues or questions:
-
-Check the Troubleshooting section above
-
-Open an issue on GitHub: https://github.com/Mendokk007/CarDealership-latest/issues
-
-Contact the development team
-
-🎯 Future Updates
-Planned features for future releases:
-
-Admin dashboard for managing cars
-
-Purchase history for users
-
-Email confirmation for registration
-
-Password recovery feature
-
-Export purchase reports to PDF
-
-Multiple currency support
-
-Dark/Light theme toggle
-
-Made with ❤️ for the Car Dealership Management System
-
-Version 1.0.0 | Last Updated: 2024
-
-text
-
-## How to Save:
-
-1. **Copy all the text above**
-2. Open **Notepad** or any text editor
-3. **Paste** the text
-4. Click **File → Save As**
-5. Navigate to your project folder
-6. Change "Save as type" to **"All Files (*.*)"**
-7. File name: `README.md`
-8. Click **Save**
-
-Then in Git Bash:
-```bash
-git add README.md
-git commit -m "Add complete README file"
-git push origin main
+-- =============================================
+-- COMPLETE CAR DEALERSHIP DATABASE SETUP
+-- Includes all tables with profile features
+-- Copy and paste this entire script into SQL Server Management Studio
+-- =============================================
+
+-- Drop existing database if it exists (to start fresh)
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'CarDealershipDB')
+BEGIN
+    -- Close any existing connections
+    ALTER DATABASE CarDealershipDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE CarDealershipDB;
+    PRINT 'Existing database dropped';
+END
+GO
+
+-- Create new database
+CREATE DATABASE CarDealershipDB;
+PRINT 'Database CarDealershipDB created successfully';
+GO
+
+-- Use the database
+USE CarDealershipDB;
+GO
+
+-- =============================================
+-- CREATE USERS TABLE (with profile fields)
+-- =============================================
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY IDENTITY(1,1),
+    Username NVARCHAR(50) NOT NULL UNIQUE,
+    Password NVARCHAR(50) NOT NULL,
+    FullName NVARCHAR(100) NULL,
+    Email NVARCHAR(100) NULL,
+    ProfileImage VARBINARY(MAX) NULL
+);
+PRINT 'Users table created with profile fields';
+GO
+
+-- =============================================
+-- INSERT TEST USERS
+-- =============================================
+INSERT INTO Users (Username, Password, FullName, Email) 
+VALUES 
+('admin', 'admin123', 'Administrator', 'admin@cardealership.com');
+
+INSERT INTO Users (Username, Password, FullName, Email) 
+VALUES 
+('john', 'password123', 'John Doe', 'john.doe@example.com');
+
+INSERT INTO Users (Username, Password, FullName, Email) 
+VALUES 
+('jane', 'password456', 'Jane Smith', 'jane.smith@example.com');
+
+INSERT INTO Users (Username, Password, FullName, Email) 
+VALUES 
+('mike', 'mike123', NULL, NULL);
+
+INSERT INTO Users (Username, Password, FullName, Email) 
+VALUES 
+('sarah', 'sarah123', NULL, NULL);
+
+PRINT 'Test users inserted (5 users)';
+GO
+
+-- =============================================
+-- CREATE CARS TABLE
+-- =============================================
+CREATE TABLE Cars (
+    CarID INT PRIMARY KEY IDENTITY(1,1),
+    ModelName NVARCHAR(100) NOT NULL,
+    Price DECIMAL(10,2) NOT NULL,
+    ImageUrl NVARCHAR(500) NOT NULL,
+    Year INT,
+    Description NVARCHAR(MAX)
+);
+PRINT 'Cars table created';
+GO
+
+-- =============================================
+-- INSERT SAMPLE CARS
+-- =============================================
+INSERT INTO Cars (ModelName, Price, ImageUrl, Year, Description)
+VALUES 
+('Toyota Camry', 2657000.00, 'CarImages\\toyota-camry-removebg-preview.png', 2023, 'Reliable family sedan with excellent fuel economy'),
+('Honda Civic', 1583000.00, 'CarImages\\honda-civic-removebg-preview.png', 2023, 'Sporty compact car with great handling'),
+('Ford Mustang', 3506000.00, 'CarImages\\ford-mustang-removebg-preview.png', 2022, 'Iconic American muscle car with powerful engine'),
+('Tesla Model 3', 1838000.00, 'CarImages\\tesla-model-3-removebg-preview.png', 2023, 'Electric performance sedan with autopilot'),
+('BMW X5', 5990000.00, 'CarImages\\bmw-x5-removebg-preview.png', 2022, 'Luxury SUV with premium features'),
+('Mercedes C-Class', 4125000.00, 'CarImages\\mercedes-cclass-removebg-preview.png', 2023, 'Luxury sedan with elegant design'),
+('Audi A4', 3899000.00, 'CarImages\\audi-a4-removebg-preview.png', 2023, 'German engineering with Quattro all-wheel drive'),
+('Hyundai Tucson', 1898000.00, 'CarImages\\hyundai-tucson-removebg-preview.png', 2023, 'Compact SUV with modern styling'),
+('Nissan Altima', 1795000.00, 'CarImages\\nissan-altima-removebg-preview.png', 2023, 'Comfortable midsize sedan'),
+('Chevrolet Camaro', 3650000.00, 'CarImages\\chevrolet-camaro-removebg-preview.png', 2022, 'American sports car with aggressive styling');
+
+PRINT 'Sample cars inserted (10 cars)';
+GO
+
+-- =============================================
+-- CREATE PURCHASES TABLE (for tracking purchases)
+-- =============================================
+CREATE TABLE Purchases (
+    PurchaseID INT PRIMARY KEY IDENTITY(1,1),
+    CarID INT FOREIGN KEY REFERENCES Cars(CarID),
+    Username NVARCHAR(50) FOREIGN KEY REFERENCES Users(Username),
+    PurchaseDate DATETIME DEFAULT GETDATE(),
+    TotalAmount DECIMAL(10,2) NOT NULL
+);
+PRINT 'Purchases table created';
+GO
+
+-- =============================================
+-- VERIFY ALL DATA
+-- =============================================
+PRINT '=========================================';
+PRINT 'DATABASE SETUP VERIFICATION';
+PRINT '=========================================';
+
+-- Show Users table structure
+PRINT '';
+PRINT '--- USERS TABLE STRUCTURE ---';
+SELECT 
+    COLUMN_NAME,
+    DATA_TYPE,
+    CASE IS_NULLABLE WHEN 'NO' THEN 'Required' ELSE 'Optional' END AS Nullable
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'Users'
+ORDER BY ORDINAL_POSITION;
+
+-- Show Users data
+PRINT '';
+PRINT '--- USERS DATA ---';
+SELECT 
+    UserID,
+    Username,
+    Password,
+    CASE WHEN FullName IS NULL THEN '[Not Set]' ELSE FullName END AS FullName,
+    CASE WHEN Email IS NULL THEN '[Not Set]' ELSE Email END AS Email,
+    CASE WHEN ProfileImage IS NULL THEN 'No Profile Picture' ELSE 'Has Profile Picture' END AS ProfileImage
+FROM Users;
+
+-- Show Cars table structure
+PRINT '';
+PRINT '--- CARS TABLE STRUCTURE ---';
+SELECT 
+    COLUMN_NAME,
+    DATA_TYPE,
+    CASE IS_NULLABLE WHEN 'NO' THEN 'Required' ELSE 'Optional' END AS Nullable
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'Cars'
+ORDER BY ORDINAL_POSITION;
+
+-- Show Cars data
+PRINT '';
+PRINT '--- CARS DATA ---';
+SELECT 
+    CarID,
+    ModelName,
+    '₱' + FORMAT(Price, 'N0') AS Price,
+    ImageUrl AS ImagePath,
+    Year,
+    LEFT(Description, 50) + '...' AS Description
+FROM Cars;
+
+-- Show statistics
+PRINT '';
+PRINT '=========================================';
+PRINT 'DATABASE STATISTICS';
+PRINT '=========================================';
+SELECT 'Total Users' AS Item, COUNT(*) AS Count FROM Users
+UNION ALL
+SELECT 'Total Cars', COUNT(*) FROM Cars
+UNION ALL
+SELECT 'Users with Profile Info', COUNT(*) FROM Users WHERE FullName IS NOT NULL AND Email IS NOT NULL
+UNION ALL
+SELECT 'Users without Profile Info', COUNT(*) FROM Users WHERE FullName IS NULL OR Email IS NULL;
+
+PRINT '';
+PRINT '=========================================';
+PRINT 'DATABASE SETUP COMPLETE!';
+PRINT '=========================================';
+PRINT '';
+PRINT 'Test Login Credentials:';
+PRINT '  Username: admin | Password: admin123';
+PRINT '  Username: john  | Password: password123';
+PRINT '  Username: jane  | Password: password456';
+PRINT '  Username: mike  | Password: mike123';
+PRINT '  Username: sarah | Password: sarah123';
+PRINT '';
+PRINT 'Note: Users "mike" and "sarah" have no profile info set yet';
+PRINT 'They can add their FullName, Email, and Profile Picture through the Edit Profile feature';
+PRINT '=========================================';
+GO
