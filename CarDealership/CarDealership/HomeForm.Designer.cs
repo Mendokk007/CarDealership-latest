@@ -68,11 +68,11 @@
             // 
             // btnLogout
             // 
-            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(217, 55, 55); // Darker red as default
+            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(217, 55, 55);
             this.btnLogout.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLogout.FlatAppearance.BorderSize = 0;
-            this.btnLogout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(240, 71, 71); // Lighter when clicked
-            this.btnLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(240, 71, 71); // Lighter when hovered
+            this.btnLogout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(240, 71, 71);
+            this.btnLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(240, 71, 71);
             this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnLogout.ForeColor = System.Drawing.Color.White;
@@ -132,11 +132,11 @@
             // 
             // btnPrevious
             // 
-            this.btnPrevious.BackColor = System.Drawing.Color.FromArgb(94, 99, 107); // Lighter gray as default
+            this.btnPrevious.BackColor = System.Drawing.Color.FromArgb(94, 99, 107);
             this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPrevious.FlatAppearance.BorderSize = 0;
-            this.btnPrevious.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(64, 68, 75); // Darker when clicked
-            this.btnPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(64, 68, 75); // Darker when hovered
+            this.btnPrevious.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(64, 68, 75);
+            this.btnPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(64, 68, 75);
             this.btnPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPrevious.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnPrevious.ForeColor = System.Drawing.Color.White;
@@ -150,11 +150,11 @@
             // 
             // btnNext
             // 
-            this.btnNext.BackColor = System.Drawing.Color.FromArgb(94, 99, 107); // Lighter gray as default
+            this.btnNext.BackColor = System.Drawing.Color.FromArgb(94, 99, 107);
             this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNext.FlatAppearance.BorderSize = 0;
-            this.btnNext.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(64, 68, 75); // Darker when clicked
-            this.btnNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(64, 68, 75); // Darker when hovered
+            this.btnNext.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(64, 68, 75);
+            this.btnNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(64, 68, 75);
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNext.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnNext.ForeColor = System.Drawing.Color.White;
@@ -168,11 +168,11 @@
             // 
             // btnSelect
             // 
-            this.btnSelect.BackColor = System.Drawing.Color.FromArgb(217, 55, 55); // Darker red as default
+            this.btnSelect.BackColor = System.Drawing.Color.FromArgb(217, 55, 55);
             this.btnSelect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSelect.FlatAppearance.BorderSize = 0;
-            this.btnSelect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(240, 71, 71); // Lighter when clicked
-            this.btnSelect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(240, 71, 71); // Lighter when hovered
+            this.btnSelect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(240, 71, 71);
+            this.btnSelect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(240, 71, 71);
             this.btnSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSelect.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnSelect.ForeColor = System.Drawing.Color.White;

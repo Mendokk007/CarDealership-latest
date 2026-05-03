@@ -36,18 +36,28 @@ namespace CarDealership
                 using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND Password = @Password";
+                    string query = "SELECT Role FROM Users WHERE Username = @Username AND Password = @Password";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Username", username);
                         cmd.Parameters.AddWithValue("@Password", password);
-                        int count = (int)cmd.ExecuteScalar();
+                        object result = cmd.ExecuteScalar();
 
-                        if (count > 0)
+                        if (result != null)
                         {
-                            HomeForm home = new HomeForm(_connectionString, username);
-                            home.Show();
-                            this.Hide();
+                            string role = result.ToString();
+                            if (role == "Admin")
+                            {
+                                AdminForm adminForm = new AdminForm(_connectionString, username);
+                                adminForm.Show();
+                                this.Hide();
+                            }
+                            else
+                            {
+                                HomeForm home = new HomeForm(_connectionString, username);
+                                home.Show();
+                                this.Hide();
+                            }
                         }
                         else
                         {

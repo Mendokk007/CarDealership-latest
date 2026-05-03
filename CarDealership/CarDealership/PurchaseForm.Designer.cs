@@ -9,6 +9,7 @@
         private System.Windows.Forms.Label lblCarModel;
         private System.Windows.Forms.Label lblCarPrice;
         private System.Windows.Forms.Label lblCustomerInfo;
+        private System.Windows.Forms.Label lblCustomerId;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Button btnCancel;
 
@@ -28,6 +29,7 @@
             this.lblCarModel = new System.Windows.Forms.Label();
             this.lblCarPrice = new System.Windows.Forms.Label();
             this.lblCustomerInfo = new System.Windows.Forms.Label();
+            this.lblCustomerId = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbCarImage)).BeginInit();
@@ -83,14 +85,24 @@
             this.lblCustomerInfo.TabIndex = 4;
             this.lblCustomerInfo.Text = "Customer: username";
 
-            // btnConfirm - FIXED: Added TextAlign and removed FlatStyle issues
+            // lblCustomerId
+            this.lblCustomerId.AutoSize = true;
+            this.lblCustomerId.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblCustomerId.ForeColor = System.Drawing.Color.FromArgb(240, 71, 71);
+            this.lblCustomerId.Location = new System.Drawing.Point(30, 340);
+            this.lblCustomerId.Name = "lblCustomerId";
+            this.lblCustomerId.Size = new System.Drawing.Size(150, 19);
+            this.lblCustomerId.TabIndex = 7;
+            this.lblCustomerId.Text = "Customer ID: CUST-000000";
+
+            // btnConfirm
             this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(240, 71, 71);
             this.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConfirm.FlatAppearance.BorderSize = 0;
             this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfirm.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnConfirm.ForeColor = System.Drawing.Color.White;
-            this.btnConfirm.Location = new System.Drawing.Point(30, 360);
+            this.btnConfirm.Location = new System.Drawing.Point(30, 380);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(150, 40);
             this.btnConfirm.TabIndex = 5;
@@ -106,7 +118,7 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(220, 360);
+            this.btnCancel.Location = new System.Drawing.Point(220, 380);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(150, 40);
             this.btnCancel.TabIndex = 6;
@@ -119,7 +131,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(32, 34, 37);
-            this.ClientSize = new System.Drawing.Size(400, 430);
+            this.ClientSize = new System.Drawing.Size(400, 450);
+            this.Controls.Add(this.lblCustomerId);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.lblCustomerInfo);

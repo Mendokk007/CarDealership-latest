@@ -527,7 +527,7 @@ namespace CarDealership
             }
 
             Car selectedCar = cars[currentIndex];
-            PurchaseForm purchaseForm = new PurchaseForm(selectedCar, _username);
+            PurchaseForm purchaseForm = new PurchaseForm(selectedCar, _username, _connectionString);
             purchaseForm.ShowDialog();
         }
 

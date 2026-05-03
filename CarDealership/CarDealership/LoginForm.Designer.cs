@@ -114,7 +114,7 @@
             this.txtPassword.TabIndex = 5;
             this.txtPassword.UseSystemPasswordChar = true;
 
-            // btnLogin - FIXED: Now behaves exactly like btnClose
+            // btnLogin
             this.btnLogin.BackColor = System.Drawing.Color.FromArgb(240, 71, 71);
             this.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLogin.FlatAppearance.BorderSize = 0;
