@@ -13,10 +13,10 @@
 ```sql
 -- =============================================
 -- COMPLETE CAR DEALERSHIP DATABASE SETUP
--- Includes all tables with profile features
+-- Includes all tables with profile features, admin roles, stocks, and order logs
 -- =============================================
 
--- Drop existing database if it exists (to start fresh)
+-- Drop existing database if it exists
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'CarDealershipDB')
 BEGIN
     ALTER DATABASE CarDealershipDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
@@ -35,7 +35,7 @@ USE CarDealershipDB;
 GO
 
 -- =============================================
--- CREATE USERS TABLE (with profile fields)
+-- CREATE USERS TABLE (with role field)
 -- =============================================
 CREATE TABLE Users (
     UserID INT PRIMARY KEY IDENTITY(1,1),
@@ -43,35 +43,31 @@ CREATE TABLE Users (
     Password NVARCHAR(50) NOT NULL,
     FullName NVARCHAR(100) NULL,
     Email NVARCHAR(100) NULL,
-    ProfileImage VARBINARY(MAX) NULL
+    ProfileImage VARBINARY(MAX) NULL,
+    Role NVARCHAR(20) DEFAULT 'User'
 );
-PRINT 'Users table created with profile fields';
+PRINT 'Users table created with profile and role fields';
 GO
 
 -- =============================================
 -- INSERT TEST USERS
 -- =============================================
-INSERT INTO Users (Username, Password, FullName, Email) 
-VALUES 
-('admin', 'admin123', 'Administrator', 'admin@cardealership.com');
+INSERT INTO Users (Username, Password, FullName, Email, Role) 
+VALUES ('admin', 'admin123', 'Administrator', 'admin@cardealership.com', 'Admin');
 
-INSERT INTO Users (Username, Password, FullName, Email) 
-VALUES 
-('john', 'password123', 'John Doe', 'john.doe@example.com');
+INSERT INTO Users (Username, Password, FullName, Email, Role) 
+VALUES ('john', 'password123', 'John Doe', 'john.doe@example.com', 'User');
 
-INSERT INTO Users (Username, Password, FullName, Email) 
-VALUES 
-('jane', 'password456', 'Jane Smith', 'jane.smith@example.com');
+INSERT INTO Users (Username, Password, FullName, Email, Role) 
+VALUES ('jane', 'password456', 'Jane Smith', 'jane.smith@example.com', 'User');
 
-INSERT INTO Users (Username, Password, FullName, Email) 
-VALUES 
-('mike', 'mike123', NULL, NULL);
+INSERT INTO Users (Username, Password, FullName, Email, Role) 
+VALUES ('mike', 'mike123', NULL, NULL, 'User');
 
-INSERT INTO Users (Username, Password, FullName, Email) 
-VALUES 
-('sarah', 'sarah123', NULL, NULL);
+INSERT INTO Users (Username, Password, FullName, Email, Role) 
+VALUES ('sarah', 'sarah123', NULL, NULL, 'User');
 
-PRINT 'Test users inserted (5 users)';
+PRINT 'Test users inserted (5 users - 1 admin, 4 regular)';
 GO
 
 -- =============================================
@@ -86,6 +82,19 @@ CREATE TABLE Cars (
     Description NVARCHAR(MAX)
 );
 PRINT 'Cars table created';
+GO
+
+-- =============================================
+-- CREATE STOCKS TABLE
+-- =============================================
+CREATE TABLE Stocks (
+    StockID INT PRIMARY KEY IDENTITY(1,1),
+    CarID INT FOREIGN KEY REFERENCES Cars(CarID),
+    Description NVARCHAR(500),
+    Price DECIMAL(10,2) NOT NULL,
+    Quantity INT NOT NULL DEFAULT 0
+);
+PRINT 'Stocks table created';
 GO
 
 -- =============================================
@@ -108,16 +117,34 @@ PRINT 'Sample cars inserted (10 cars)';
 GO
 
 -- =============================================
--- CREATE PURCHASES TABLE (for tracking purchases)
+-- INSERT SAMPLE STOCKS
 -- =============================================
-CREATE TABLE Purchases (
-    PurchaseID INT PRIMARY KEY IDENTITY(1,1),
-    CarID INT FOREIGN KEY REFERENCES Cars(CarID),
+INSERT INTO Stocks (CarID, Description, Price, Quantity)
+VALUES 
+(1, 'Toyota Camry Stock', 2657000.00, 5),
+(2, 'Honda Civic Stock', 1583000.00, 3),
+(3, 'Ford Mustang Stock', 3506000.00, 2),
+(4, 'Tesla Model 3 Stock', 1838000.00, 4),
+(5, 'BMW X5 Stock', 5990000.00, 1);
+
+PRINT 'Sample stocks inserted (5 stocks)';
+GO
+
+-- =============================================
+-- CREATE ORDER LOGS TABLE
+-- =============================================
+CREATE TABLE OrderLogs (
+    OrderID INT PRIMARY KEY IDENTITY(1,1),
+    CustomerID NVARCHAR(50) NOT NULL,
     Username NVARCHAR(50) FOREIGN KEY REFERENCES Users(Username),
-    PurchaseDate DATETIME DEFAULT GETDATE(),
-    TotalAmount DECIMAL(10,2) NOT NULL
+    CarID INT FOREIGN KEY REFERENCES Cars(CarID),
+    StockID INT FOREIGN KEY REFERENCES Stocks(StockID),
+    Quantity INT NOT NULL DEFAULT 1,
+    TotalAmount DECIMAL(10,2) NOT NULL,
+    OrderDate DATETIME DEFAULT GETDATE(),
+    Status NVARCHAR(50) DEFAULT 'Completed'
 );
-PRINT 'Purchases table created';
+PRINT 'OrderLogs table created';
 GO
 
 -- =============================================
@@ -134,9 +161,9 @@ SELECT
     UserID,
     Username,
     Password,
+    Role,
     CASE WHEN FullName IS NULL THEN '[Not Set]' ELSE FullName END AS FullName,
-    CASE WHEN Email IS NULL THEN '[Not Set]' ELSE Email END AS Email,
-    CASE WHEN ProfileImage IS NULL THEN 'No Profile Picture' ELSE 'Has Profile Picture' END AS ProfileImage
+    CASE WHEN Email IS NULL THEN '[Not Set]' ELSE Email END AS Email
 FROM Users;
 
 -- Show Cars data
@@ -146,10 +173,21 @@ SELECT
     CarID,
     ModelName,
     '₱' + FORMAT(Price, 'N0') AS Price,
-    ImageUrl AS ImagePath,
     Year,
     LEFT(Description, 50) + '...' AS Description
 FROM Cars;
+
+-- Show Stocks data
+PRINT '';
+PRINT '--- STOCKS DATA ---';
+SELECT 
+    s.StockID,
+    c.ModelName,
+    s.Description,
+    '₱' + FORMAT(s.Price, 'N0') AS Price,
+    s.Quantity
+FROM Stocks s
+JOIN Cars c ON s.CarID = c.CarID;
 
 -- Show statistics
 PRINT '';
@@ -158,11 +196,13 @@ PRINT 'DATABASE STATISTICS';
 PRINT '=========================================';
 SELECT 'Total Users' AS Item, COUNT(*) AS Count FROM Users
 UNION ALL
+SELECT 'Total Admins', COUNT(*) FROM Users WHERE Role = 'Admin'
+UNION ALL
 SELECT 'Total Cars', COUNT(*) FROM Cars
 UNION ALL
-SELECT 'Users with Profile Info', COUNT(*) FROM Users WHERE FullName IS NOT NULL AND Email IS NOT NULL
+SELECT 'Total Stocks', COUNT(*) FROM Stocks
 UNION ALL
-SELECT 'Users without Profile Info', COUNT(*) FROM Users WHERE FullName IS NULL OR Email IS NULL;
+SELECT 'Total Order Logs', COUNT(*) FROM OrderLogs;
 
 PRINT '';
 PRINT '=========================================';
@@ -170,14 +210,14 @@ PRINT 'DATABASE SETUP COMPLETE!';
 PRINT '=========================================';
 PRINT '';
 PRINT 'Test Login Credentials:';
-PRINT '  Username: admin | Password: admin123';
-PRINT '  Username: john  | Password: password123';
-PRINT '  Username: jane  | Password: password456';
-PRINT '  Username: mike  | Password: mike123';
-PRINT '  Username: sarah | Password: sarah123';
+PRINT '  Admin:  Username: admin | Password: admin123';
+PRINT '  User:   Username: john  | Password: password123';
+PRINT '  User:   Username: jane  | Password: password456';
+PRINT '  User:   Username: mike  | Password: mike123';
+PRINT '  User:   Username: sarah | Password: sarah123';
 PRINT '';
-PRINT 'Note: Users "mike" and "sarah" have no profile info set yet';
-PRINT 'They can add their FullName, Email, and Profile Picture through the Edit Profile feature';
+PRINT 'Note: Admin account goes directly to AdminForm';
+PRINT 'Regular users go to HomeForm';
 PRINT '=========================================';
 GO
 
